@@ -10,8 +10,12 @@ export default class Node {
   getKey() {
     return this.key;
   }
+  
+  setKey(key) {
+    this.key = key;
+  }
 
-  getVaule() {
+  getValue() {
     return this.value;
   }
   

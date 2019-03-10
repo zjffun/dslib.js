@@ -1,5 +1,6 @@
 import Node from "./node";
 import List from "./list";
+import ListNode from "./listnode";
 
 export default class TreeNode extends Node {
   private parent: TreeNode = null;
@@ -8,6 +9,15 @@ export default class TreeNode extends Node {
   constructor(key, value, parent: TreeNode = null) {
     super(key, value);
     this.parent = parent;
+    this.children = new List();
+  }
+
+  getChildren(): List {
+    return this.children;
+  }
+
+  getParent(): TreeNode{
+    return this.parent;
   }
 
   addChild(value): void {
@@ -26,20 +36,36 @@ export default class TreeNode extends Node {
   }
 
   isLastChild(): boolean {
-    return this.parent.children.rear.getVaule() == this;
+    return this.parent.children.rear.getValue() == this;
+  }
+
+  // reverseTraverse
+  rTraverse(f, thisArg) {
+    var children = this.children,
+      child = children.front();
+    while (child) {
+      child.getValue().rTraverse(f, thisArg);
+      child = child.getNextNode();
+    }
+    f.call(thisArg, this);
   }
 
   traverse(f, thisArg) {
-    if (f.call(thisArg, this) !== false) {
-      var children = this.children, child = children.head;
-      while(child){
-        child.getVaule().traverse(f, thisArg);
-        child = child.getNextNode();
+    let _traverse = (f, thisArg, rowNode) => {
+      let value = rowNode.getValue();
+      if (f.call(thisArg, value, rowNode) !== false) {
+        var children = value.children,
+          child = children.front();
+        while (child) {
+          _traverse(f, thisArg, child);
+          child = child.getNextNode();
+        }
       }
     }
-  };
+    _traverse(f, thisArg, new ListNode(null, this));
+  }
 
   clone() {
-    return new TreeNode(this.getKey(), this.getVaule());
+    return new TreeNode(this.getKey(), this.getValue());
   }
 }

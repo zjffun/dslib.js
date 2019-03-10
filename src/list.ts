@@ -1,5 +1,6 @@
 import ListNode from "./listnode";
 import from from "./list/from";
+import reduce from './list/reduce';
 
 export default class List {
   forEach(f: any, thisArg: any): any {
@@ -15,7 +16,7 @@ export default class List {
         currentNode = currentNode.getNextNode();
         return {
           done: !currentNode,
-          value: currentNode && currentNode.getVaule()
+          value: currentNode && currentNode.getValue()
         };
       }
     };
@@ -72,5 +73,14 @@ export default class List {
     let node = new ListNode(null, value);
     this.head.insertAfter(node);
     this.length++;
+  }
+
+  // Like c++ std::list::front 
+  front(): ListNode {
+    return this.head.getNextNode();
+  }
+
+  reduce(callback, initialVaule){
+    return reduce.call(this, callback, initialVaule);
   }
 }
