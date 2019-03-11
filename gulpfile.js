@@ -1,4 +1,4 @@
-const { src } = require("gulp");
+const { src, watch } = require("gulp");
 const clean = require('gulp-clean');
 const pkg = require("./package.json");
 const rollup = require("rollup");

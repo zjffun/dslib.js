@@ -57,7 +57,7 @@ export default class List {
       node = this.rear.deleteAfter();
       this.length--;
     }
-    return node ? node.getVaule() : null;
+    return node ? node.getValue() : null;
   }
 
   shift(): void {
@@ -66,7 +66,7 @@ export default class List {
       node = this.head.deleteAfter();
       this.length--;
     }
-    return node ? node.getVaule() : null;
+    return node ? node.getValue() : null;
   }
 
   unshift(value): void {
@@ -80,7 +80,7 @@ export default class List {
     return this.head.getNextNode();
   }
 
-  reduce(callback, initialVaule){
-    return reduce.call(this, callback, initialVaule);
+  reduce(callback, initialValue){
+    return reduce.call(this, callback, initialValue);
   }
 }
