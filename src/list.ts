@@ -1,33 +1,42 @@
 import ListNode from "./listnode";
 import from from "./list/from";
-import reduce from './list/reduce';
+import reduce from "./list/reduce";
 
 export default class List {
-  forEach(f: any, thisArg: any): any {
-    throw new Error("Method not implemented.");
-  }
-  public length = 0;
-  public rear: ListNode = null;
-  public head: ListNode = null;
+  private _length: number = 0;
+  private _rear: ListNode = null;
+  private _head: ListNode = null;
   [Symbol.iterator]() {
-    let currentNode = this.head;
+    let currentNode = this._head;
     return {
       next() {
-        currentNode = currentNode.getNextNode();
+        currentNode = currentNode.nextNode;
         return {
           done: !currentNode,
-          value: currentNode && currentNode.getValue()
+          value: currentNode && currentNode.value
         };
       }
     };
   }
 
+  get length() {
+    return this._length;
+  }
+
+  get rear() {
+    return this._rear;
+  }
+
+  get head() {
+    return this._head;
+  }
+
   constructor(...args) {
-    if(args.length){
+    if (args.length) {
       Object.assign(this, List.of(...args));
-    }else{
-      this.head = new ListNode(null, null);
-      this.rear = this.head;
+    } else {
+      this._head = new ListNode();
+      this._rear = this._head;
     }
   }
 
@@ -35,52 +44,52 @@ export default class List {
     return from.apply(this, args);
   }
 
-  static of(...args): List{
+  static of(...args): List {
     return List.from(args);
   }
 
-  static isList(value): boolean {
-    return value instanceof List;
+  static isList(node): boolean {
+    return node instanceof List;
   }
 
-  push(value): void {
-    let node = new ListNode(null, value);
-    this.rear.insertAfter(node);
-    this.rear = node;
-    this.length++;
+  push(value, key = null): void {
+    let node = new ListNode(value, key);
+    this._rear.insertAfter(node);
+    this._rear = node;
+    this._length++;
   }
 
-  pop() {
+  pop(): ListNode {
     let node = null;
-    if (this.length > 0) {
-      this.rear = this.rear.getPrevNode(); 
-      node = this.rear.deleteAfter();
-      this.length--;
+    if (this._length > 0) {
+      this._rear = this._rear.prevNode;
+      node = this._rear.deleteAfter();
+      this._length--;
     }
-    return node ? node.getValue() : null;
+    return node || new ListNode();
   }
 
-  shift(): void {
-    let node = null; 
-    if (this.length > 0) {
-      node = this.head.deleteAfter();
-      this.length--;
+  shift(): ListNode {
+    let node = null;
+    if (this._length > 0) {
+      node = this._head.deleteAfter();
+      this._length--;
     }
-    return node ? node.getValue() : null;
+    return node || new ListNode();
   }
 
-  unshift(value): void {
-    let node = new ListNode(null, value);
-    this.head.insertAfter(node);
-    this.length++;
+  unshift(value, key = null): void {
+    let node = new ListNode(value, key);
+    this._head.insertAfter(node);
+    this._length++;
   }
 
-  // Like c++ std::list::front 
-  front(): ListNode {
-    return this.head.getNextNode();
-  }
-
-  reduce(callback, initialValue){
+  reduce(callback, initialValue) {
     return reduce.call(this, callback, initialValue);
+  }
+
+  // Like c++ std::list::front
+  front(): ListNode {
+    return this._head.nextNode;
   }
 }

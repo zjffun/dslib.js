@@ -1,42 +1,71 @@
 const List = require("../dist/list");
 
-let list = null;
+beforeAll(() => {
+  global.testList = new List(1, "zxc", [1, 2, 3], {1: 'zxc', 2: 'zxc', 3: 'zxc'}, new List('1', '2', '3'));
+});
 
 test("List", () => {
-  list = new List(1, 2, 3, 4, 5, "zxc", "sad", "qwe");
-  expect([...list]).toEqual([1, 2, 3, 4, 5, "zxc", "sad", "qwe"]);
+  let arr = [...testList];
+  expect(arr.slice(0, 4)).toEqual([1, "zxc", [1, 2, 3], {1: 'zxc', 2: 'zxc', 3: 'zxc'}]);
+  expect(arr[4] instanceof List).toBeTruthy();
 });
 
 test("List.length", () => {
-  expect(list.length).toEqual(8);
+  expect(testList.length).toEqual(5);
 });
 
 test("List.from()", () => {
   // Array
-  list = List.from([1, 2, 3, 'zxc']);
-  expect([...list]).toEqual([1, 2, 3, 'zxc']);
-  list = List.from([1, 2, 3], x => x * 2)
-  expect([...list]).toEqual([2, 4, 6]);
+  let testList = List.from([1, 2, 3, "zxc"]);
+  expect([...testList]).toEqual([1, 2, 3, "zxc"]);
+  testList = List.from([1, 2, 3], x => x * 2);
+  expect([...testList]).toEqual([2, 4, 6]);
 
+  // this implementation does not support generic iterables as defined in the 6th edition of ECMA-262.
+  /*
   // Set
-  list = List.from(new Set([1, 2, 3, 'zxc', 1]));
-  expect([...list]).toEqual([1, 2, 3, 'zxc']);
+  testList = List.from(new Set([1, 2, 3, 'zxc', 1]));
+  expect([...testList]).toEqual([1, 2, 3, 'zxc']);
 
   // Map
-  list = List.from(new Map([[1, 2], [2, 4], [4, 8]]));
-  expect([...list]).toEqual([[1, 2], [2, 4], [4, 8]]);
+  testList = List.from(new Map([[1, 2], [2, 4], [4, 8]]));
+  expect([...testList]).toEqual([[1, 2], [2, 4], [4, 8]]);
+  */
 });
 
-// expect(list.pop()).toBe(null);
-//   expect(list.shift()).toBe(null);
-//   list.push(123);
-//   list.push(456);
-//   list.push(789);
-//   expect([...list]).toEqual([123, 456, 789]);
-//   expect(list.pop()).toBe(789);
-//   expect(list.shift()).toBe(123);
-//   expect([...list]).toEqual([456]);
-//   list.pop();
-//   expect(list.pop()).toBe(null);
-//   expect(list.shift()).toBe(null);
-//   expect([...list]).toEqual([]);
+test("List.of()", () => {
+  let testList = List.of(1, 2, 3, 4, 5, "zxc", "sad", "qwe");
+  expect([...testList]).toEqual([1, 2, 3, 4, 5, "zxc", "sad", "qwe"]);
+});
+
+test("List.isList()", () => {
+  expect(List.isList(testList)).toBeTruthy();
+  expect(List.isList([])).toBeFalsy();
+});
+
+test("List.prototype.push(), List.unshift()", () => {
+  let testList = new List();
+  testList.push(123);
+  testList.unshift(0);
+  expect([...testList]).toEqual([0, 123]);
+});
+
+test("List.prototype.pop(), List.shift", () => {
+  let testList = new List(0, 123)
+  expect(testList.pop().value).toBe(123);
+  expect(testList.shift().value).toBe(0);
+  expect(testList.pop().value).toBeNull();
+  expect(testList.shift().value).toBeNull();
+  expect([...testList]).toEqual([]);
+});
+
+test("List.prototype.reduce()", () => {
+  let testList = new List(2, 3, 4);
+  expect(testList.reduce((sum, cur) => sum + cur, 0)).toBe(9);
+});
+
+test("List.prototype.front()", () => {
+  expect(testList.front().value).toBe(1);
+});
+
+

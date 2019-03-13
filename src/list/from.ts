@@ -1,7 +1,5 @@
-// Production steps of ECMA-262, Edition 6, 22.1.2.1
-// [Array.from() - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
+import List from "../list";
 
-// The length property of the from method is 1.
 export default function from(arrayLike /*, mapFn, thisArg */) {
   var toStr = Object.prototype.toString;
   var isCallable = function(fn) {
@@ -22,9 +20,6 @@ export default function from(arrayLike /*, mapFn, thisArg */) {
     var len = toInteger(value);
     return Math.min(Math.max(len, 0), maxSafeInteger);
   };
-
-  // 1. Let C be the this value.
-  var C = this;
 
   // 2. Let items be ToObject(arrayLike).
   var items = Object(arrayLike);
@@ -59,7 +54,7 @@ export default function from(arrayLike /*, mapFn, thisArg */) {
   var len = toLength(items.length);
 
   // 13. Let A be List.
-  var L = new C();
+  var L:List = new this();
 
   // 16. Let k be 0.
   var k = 0;
@@ -76,8 +71,11 @@ export default function from(arrayLike /*, mapFn, thisArg */) {
     }
     k += 1;
   }
-  // 18. Let putStatus be Put(A, "length", len, true).
-  L.length = len;
+
   // 20. Return A.
   return L;
 }
+
+/* reference
+// [Array.from() - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
+*/

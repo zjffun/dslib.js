@@ -1,50 +1,50 @@
 import Node from "./node";
 
 export default class ListNode extends Node {
-  private prevNode: ListNode = null;
-  private nextNode: ListNode = null;
+  private _prevNode: ListNode = null;
+  private _nextNode: ListNode = null;
 
-  getPrevNode(): ListNode {
-    return this.prevNode;
+  get prevNode(): ListNode {
+    return this._prevNode;
   }
-  getNextNode(): ListNode {
-    return this.nextNode;
+  get nextNode(): ListNode {
+    return this._nextNode;
   }
   deleteCurrent(): ListNode {
     let node = this;
-    if (node.prevNode) {
-      node.prevNode.nextNode = node.nextNode;
+    if (node._prevNode) {
+      node._prevNode._nextNode = node._nextNode;
     }
-    if (this.nextNode) {
-      node.nextNode.prevNode = node.prevNode;
+    if (this._nextNode) {
+      node._nextNode._prevNode = node._prevNode;
     }
-    node.prevNode = null;
-    node.nextNode = null;
+    node._prevNode = null;
+    node._nextNode = null;
     return node;
   }
   deleteAfter(): ListNode {
-    let node = this.nextNode;
+    let node = this._nextNode;
     if (node) {
       node.deleteCurrent();
     }
     return node;
   }
 
-  insertAfter(node): void {
-    node.prevNode = this;
-    node.nextNode = this.nextNode;
-    node.prevNode.nextNode = node;
-    if (node.nextNode) {
-      node.nextNode.prevNode = node;
+  insertAfter(node: ListNode): void {
+    node._prevNode = this;
+    node._nextNode = this._nextNode;
+    node._prevNode._nextNode = node;
+    if (node._nextNode) {
+      node._nextNode._prevNode = node;
     }
   }
 
-  insertBefore(node): void {
-    node.prevNode = this.prevNode;
-    node.nextNode = this;
-    node.nextNode.prevNode = node;
-    if (node.nextNode) {
-      node.prevNode.nextNode = node;
+  insertBefore(node: ListNode): void {
+    node._prevNode = this._prevNode;
+    node._nextNode = this;
+    node._nextNode._prevNode = node;
+    if (node._nextNode) {
+      node._prevNode._nextNode = node;
     }
   }
 }

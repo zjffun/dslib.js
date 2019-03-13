@@ -3,49 +3,49 @@ import List from "./list";
 import ListNode from "./listnode";
 
 export default class TreeNode extends Node {
-  private parent: TreeNode = null;
-  private children: List = null;
+  private _parent: TreeNode = null;
+  private _children: List = null;
 
-  constructor(key, value, parent: TreeNode = null) {
-    super(key, value);
-    this.parent = parent;
-    this.children = new List();
+  constructor(value, key = null, parent: TreeNode = null) {
+    super(value, key);
+    this._parent = parent;
+    this._children = new List();
   }
 
-  getChildren(): List {
-    return this.children;
+  get children(): List {
+    return this._children;
   }
 
-  getParent(): TreeNode{
-    return this.parent;
+  get parent(): TreeNode {
+    return this._parent;
   }
 
-  addChild(value): void {
+  addChild(value, key = null): void {
     let node = null;
     if (value instanceof TreeNode) {
-      value.parent = this;
+      value._parent = this;
       node = value;
     } else {
-      node = new TreeNode(null, value, this);
+      node = new TreeNode(value, key, this);
     }
-    this.children.push(node);
+    this._children.push(node);
   }
 
   isLeaf(): boolean {
-    return !this.children.length;
+    return !this._children.length;
   }
 
   isLastChild(): boolean {
-    return this.parent.children.rear.getValue() == this;
+    return this._parent._children.rear.value == this;
   }
 
   // reverseTraverse
   rTraverse(f, thisArg) {
-    var children = this.children,
+    var children = this._children,
       child = children.front();
     while (child) {
-      child.getValue().rTraverse(f, thisArg);
-      child = child.getNextNode();
+      child.value.rTraverse(f, thisArg);
+      child = child.nextNode;
     }
     f.call(thisArg, this);
   }
@@ -61,11 +61,7 @@ export default class TreeNode extends Node {
           child = child.getNextNode();
         }
       }
-    }
-    _traverse(f, thisArg, new ListNode(null, this));
-  }
-
-  clone() {
-    return new TreeNode(this.getKey(), this.getValue());
+    };
+    _traverse(f, thisArg, new ListNode(this));
   }
 }

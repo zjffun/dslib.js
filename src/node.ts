@@ -1,25 +1,20 @@
 export default class Node {
-  private key = null;
-  private value = null;
-
-  constructor(key, value) {
-    this.key = key;
-    this.value = value;
+  private _key = null;
+  private _value = null;
+  constructor(value = null, key = null) {
+    this._key = key;
+    this._value = value;
   }
 
-  getKey() {
-    return this.key;
+  get key() {
+    return this._key;
   }
-  
+
+  get value() {
+    return this._value;
+  }
+
   setKey(key) {
-    this.key = key;
-  }
-
-  getValue() {
-    return this.value;
-  }
-  
-  clone() {
-    return new Node(this.key, this.value);
+    this._key = key;
   }
 }
