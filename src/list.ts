@@ -88,8 +88,48 @@ export default class List {
     return reduce.call(this, callback, initialValue);
   }
 
+  forEach(callback){
+    let node = this.front();
+    while(node){
+      callback(node.value, node);
+      node = node.nextNode;
+    }
+    return this;
+  }
+
+  sort(compareFunction){
+
+    recQuickSort(this.front(), this.rear);
+    let _this =this;
+    function recQuickSort(left, right) {
+      if (left !== right) {
+        var cur = partition(left, right);
+        recQuickSort(left, cur.prevNode);
+        recQuickSort(cur.nextNode, right);
+      }
+    }
+
+    function partition(left, right) {
+      var pivot = right, tright = right;
+      var node = left;
+      while(node !== pivot){
+        if(compareFunction(node.value, pivot.value) > 0){
+          tright.insertAfter(node.deleteCurrent());
+          tright = tright.nextNode;
+        }
+        node = node.nextNode;
+      }
+
+      console.log('Pivot = %s', pivot);
+      console.log([..._this]);
+      return pivot;
+    }
+  }
+
   // Like c++ std::list::front
   front(): ListNode {
     return this._head.nextNode;
   }
+
+  
 }

@@ -17,4 +17,8 @@ export default class Node {
   setKey(key) {
     this._key = key;
   }
+
+  setValue(value) {
+    this._value = value;
+  }
 }

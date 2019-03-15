@@ -1,12 +1,23 @@
 const List = require("../dist/list");
 
 beforeAll(() => {
-  global.testList = new List(1, "zxc", [1, 2, 3], {1: 'zxc', 2: 'zxc', 3: 'zxc'}, new List('1', '2', '3'));
+  global.testList = new List(
+    1,
+    "zxc",
+    [1, 2, 3],
+    { 1: "zxc", 2: "zxc", 3: "zxc" },
+    new List("1", "2", "3")
+  );
 });
 
 test("List", () => {
   let arr = [...testList];
-  expect(arr.slice(0, 4)).toEqual([1, "zxc", [1, 2, 3], {1: 'zxc', 2: 'zxc', 3: 'zxc'}]);
+  expect(arr.slice(0, 4)).toEqual([
+    1,
+    "zxc",
+    [1, 2, 3],
+    { 1: "zxc", 2: "zxc", 3: "zxc" }
+  ]);
   expect(arr[4] instanceof List).toBeTruthy();
 });
 
@@ -51,7 +62,7 @@ test("List.prototype.push(), List.unshift()", () => {
 });
 
 test("List.prototype.pop(), List.shift", () => {
-  let testList = new List(0, 123)
+  let testList = new List(0, 123);
   expect(testList.pop().value).toBe(123);
   expect(testList.shift().value).toBe(0);
   expect(testList.pop().value).toBeNull();
@@ -64,8 +75,17 @@ test("List.prototype.reduce()", () => {
   expect(testList.reduce((sum, cur) => sum + cur, 0)).toBe(9);
 });
 
+test("List.prototype.forEach()", () => {
+  let testList = new List(1, 2, 3);
+  expect([...testList.forEach((d, node) => node.setValue(node.value + 1))]).toEqual([2, 3, 4]);
+});
+
+test("List.prototype.sort()", () => {
+  let testList = new List(9, 4, 8, 3, 1, 2, 5);
+  expect([...testList.sort((a, b) => a - b)]).toEqual([2, 3, 4]);
+  expect([...testList.sort((a, b) => b - a)]).toEqual([2, 3, 4]);
+});
+
 test("List.prototype.front()", () => {
   expect(testList.front().value).toBe(1);
 });
-
-
