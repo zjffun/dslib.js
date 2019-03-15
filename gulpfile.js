@@ -1,5 +1,5 @@
 const { src, watch } = require("gulp");
-const clean = require('gulp-clean');
+const clean = require("gulp-clean");
 const pkg = require("./package.json");
 const rollup = require("rollup");
 const rollupTypescript = require("rollup-plugin-typescript");
@@ -19,14 +19,13 @@ function dev() {
       return bundle.write({
         sourcemap: true,
         dir: "dist",
-        format: "cjs",
+        format: "cjs"
       });
     });
 }
 
 async function build() {
-  src('dist/**', {read: false}).pipe(clean());
-
+  // await src("dist/**", { read: false }).pipe(clean());
   for (let key in inputs) {
     const value = inputs[key];
     await rollup
@@ -47,8 +46,8 @@ async function build() {
 }
 
 function watchSrc() {
-    dev();
-    watch("./src/**", dev);
+  dev();
+  watch("./src/**", dev);
 }
 
 exports.watch = watchSrc;

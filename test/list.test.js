@@ -76,14 +76,20 @@ test("List.prototype.reduce()", () => {
 });
 
 test("List.prototype.forEach()", () => {
-  let testList = new List(1, 2, 3);
-  expect([...testList.forEach((d, node) => node.setValue(node.value + 1))]).toEqual([2, 3, 4]);
+  let testList = new List(1, 2, 3),
+    arr = [];
+  testList.forEach((d, node) => arr.push([d, node.value]));
+  expect(arr).toEqual([[1, 1], [2, 2], [3, 3]]);
 });
 
 test("List.prototype.sort()", () => {
   let testList = new List(9, 4, 8, 3, 1, 2, 5);
-  expect([...testList.sort((a, b) => a - b)]).toEqual([2, 3, 4]);
-  expect([...testList.sort((a, b) => b - a)]).toEqual([2, 3, 4]);
+  expect([...testList.sort((a, b) => a - b)]).toEqual(
+    [9, 4, 8, 3, 1, 2, 5].sort((a, b) => a - b)
+  );
+  expect([...testList.sort((a, b) => b - a)]).toEqual(
+    [9, 4, 8, 3, 1, 2, 5].sort((a, b) => b - a)
+  );
 });
 
 test("List.prototype.front()", () => {
