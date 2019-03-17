@@ -82,6 +82,11 @@ test("List.prototype.forEach()", () => {
   expect(arr).toEqual([[1, 1], [2, 2], [3, 3]]);
 });
 
+test("List.prototype.map()", () => {
+  let testList = new List(1, 2, 3);
+  expect([...testList.map(d => d * 2)]).toEqual([2,4,6]);
+});
+
 test("List.prototype.sort()", () => {
   let testList = new List(9, 4, 8, 3, 1, 2, 5);
   expect([...testList.sort((a, b) => a - b)]).toEqual(
@@ -92,6 +97,21 @@ test("List.prototype.sort()", () => {
   );
 });
 
+test("List.prototype.sortNode()", () => {
+  let testList = new List(9, 4, 8, 3, 1, 2, 5);
+  expect([...testList.sortNode((a, b) => a - b)]).toEqual(
+    [9, 4, 8, 3, 1, 2, 5].sort((a, b) => a - b)
+  );
+  /** bug：rear */
+  expect([...testList.sortNode((a, b) => b - a)]).toEqual(
+    [9, 4, 8, 3, 1, 2, 5].sort((a, b) => b - a)
+  );
+});
+
 test("List.prototype.front()", () => {
   expect(testList.front().value).toBe(1);
+});
+
+test("List.prototype.get()", () => {
+  expect(testList.get(1).value).toBe("zxc");
 });

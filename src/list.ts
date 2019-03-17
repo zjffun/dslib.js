@@ -4,7 +4,6 @@ import reduce from "./list/reduce";
 
 export default class List {
   private _length: number = 0;
-  private _rear: ListNode = null;
   private _head: ListNode = null;
   [Symbol.iterator]() {
     let currentNode = this._head;
@@ -24,7 +23,11 @@ export default class List {
   }
 
   get rear() {
-    return this._rear;
+    let rear = this._head;
+    while (rear.nextNode) {
+      rear = rear.nextNode;
+    }
+    return rear;
   }
 
   get head() {
@@ -36,7 +39,6 @@ export default class List {
       Object.assign(this, List.of(...args));
     } else {
       this._head = new ListNode();
-      this._rear = this._head;
     }
   }
 
@@ -54,16 +56,14 @@ export default class List {
 
   push(value, key = null): void {
     let node = new ListNode(value, key);
-    this._rear.insertAfter(node);
-    this._rear = node;
+    this.rear.insertAfter(node);
     this._length++;
   }
 
   pop(): ListNode {
     let node = null;
     if (this._length > 0) {
-      this._rear = this._rear.prevNode;
-      node = this._rear.deleteAfter();
+      node = this.rear.deleteCurrent();
       this._length--;
     }
     return node || new ListNode();
@@ -94,6 +94,15 @@ export default class List {
       callback(node.value, node);
       node = node.nextNode;
     }
+  }
+
+  map(callback) {
+    let node = this.front();
+    while (node) {
+      node.setValue(callback(node.value, node));
+      node = node.nextNode;
+    }
+    return this;
   }
 
   sort(compareFunction) {
@@ -129,11 +138,70 @@ export default class List {
       pivot = tleft;
       return pivot;
     }
+  }
 
+  sortNode(compareFunction) {
+    recQuickSort(this.front(), this.rear);
+    return this;
+    function recQuickSort(left, right) {
+      var [cur, tleft, tright] = partition(left, right);
+      if (tleft) {
+        recQuickSort(tleft, cur.prevNode);
+      }
+      if (tright) {
+        recQuickSort(cur.nextNode, tright);
+      }
+    }
+
+    function partition(left, right) {
+      var pivot = right,
+        tleft = left,
+        tright = right,
+        temp;
+      var node = left;
+      while (node !== pivot) {
+        temp = node.nextNode;
+        if (compareFunction(node.value, pivot.value) > 0) {
+          node.deleteCurrent();
+          tright.insertAfter(node);
+          tright = node;
+        } else {
+          tleft = node;
+          break;
+        }
+        tleft = temp;
+        node = temp;
+      }
+
+      while (node !== pivot) {
+        temp = node.nextNode;
+        if (compareFunction(node.value, pivot.value) > 0) {
+          node.deleteCurrent();
+          tright.insertAfter(node);
+          tright = node;
+        }
+        node = temp;
+      }
+
+      return [
+        pivot,
+        tleft !== pivot ? tleft : null,
+        tright !== pivot ? tright : null
+      ];
+    }
   }
 
   // Like c++ std::list::front
   front(): ListNode {
     return this._head.nextNode;
+  }
+
+  // list java java.util List get()
+  get(index: number): ListNode {
+    let node = this.front();
+    for (let i = 0; node && i < index; i++) {
+      node = node.nextNode;
+    }
+    return node;
   }
 }
