@@ -57,6 +57,13 @@
           }
           return node;
       }
+      deleteBefore() {
+          let node = this._prevNode;
+          if (node) {
+              node.deleteCurrent();
+          }
+          return node;
+      }
       insertAfter(node) {
           node._prevNode = this;
           node._nextNode = this._nextNode;
@@ -69,7 +76,7 @@
           node._prevNode = this._prevNode;
           node._nextNode = this;
           node._nextNode._prevNode = node;
-          if (node._nextNode) {
+          if (node._prevNode) {
               node._prevNode._nextNode = node;
           }
       }
@@ -171,31 +178,28 @@
 
   class List {
       constructor(...args) {
-          this._length = 0;
-          this._rear = null;
           this._head = null;
+          this._rear = null;
           if (args.length) {
               Object.assign(this, List.of(...args));
           }
           else {
               this._head = new ListNode();
-              this._rear = this._head;
+              this._rear = new ListNode();
+              this._head.insertAfter(this._rear);
           }
       }
       [Symbol.iterator]() {
-          let currentNode = this._head;
+          let currentNode = this._head, rear = this._rear;
           return {
               next() {
                   currentNode = currentNode.nextNode;
                   return {
-                      done: !currentNode,
+                      done: currentNode === rear,
                       value: currentNode && currentNode.value
                   };
               }
           };
-      }
-      get length() {
-          return this._length;
       }
       get rear() {
           return this._rear;
@@ -214,44 +218,46 @@
       }
       push(value, key = null) {
           let node = new ListNode(value, key);
-          this._rear.insertAfter(node);
-          this._rear = node;
-          this._length++;
+          this._rear.insertBefore(node);
       }
       pop() {
           let node = null;
-          if (this._length > 0) {
-              this._rear = this._rear.prevNode;
-              node = this._rear.deleteAfter();
-              this._length--;
+          if (this._rear.prevNode !== this._head) {
+              node = this._rear.deleteBefore();
           }
           return node || new ListNode();
       }
       shift() {
           let node = null;
-          if (this._length > 0) {
+          if (this._head.nextNode !== this._rear) {
               node = this._head.deleteAfter();
-              this._length--;
           }
           return node || new ListNode();
       }
       unshift(value, key = null) {
           let node = new ListNode(value, key);
           this._head.insertAfter(node);
-          this._length++;
       }
       reduce(callback, initialValue) {
           return reduce.call(this, callback, initialValue);
       }
       forEach(callback) {
           let node = this.front();
-          while (node) {
+          while (node.nextNode) {
               callback(node.value, node);
               node = node.nextNode;
           }
       }
+      map(callback) {
+          let node = this.front();
+          while (node) {
+              node.setValue(callback(node.value, node));
+              node = node.nextNode;
+          }
+          return this;
+      }
       sort(compareFunction) {
-          recQuickSort(this.front(), this.rear);
+          recQuickSort(this.front(), this.back());
           return this;
           function recQuickSort(left, right) {
               var cur = partition(left, right);
@@ -281,9 +287,75 @@
               return pivot;
           }
       }
-      // Like c++ std::list::front
+      sortNode(compareFunction) {
+          recQuickSort(this.front(), this.back());
+          return this;
+          function recQuickSort(left, right) {
+              var [cur, tleft, tright] = partition(left, right);
+              if (tleft) {
+                  recQuickSort(tleft, cur.prevNode);
+              }
+              if (tright) {
+                  recQuickSort(cur.nextNode, tright);
+              }
+          }
+          function partition(left, right) {
+              var pivot = right, tleft = left, tright = right, temp;
+              var node = left;
+              while (node !== pivot) {
+                  temp = node.nextNode;
+                  if (compareFunction(node.value, pivot.value) > 0) {
+                      node.deleteCurrent();
+                      tright.insertAfter(node);
+                      tright = node;
+                  }
+                  else {
+                      tleft = node;
+                      break;
+                  }
+                  tleft = temp;
+                  node = temp;
+              }
+              while (node !== pivot) {
+                  temp = node.nextNode;
+                  if (compareFunction(node.value, pivot.value) > 0) {
+                      node.deleteCurrent();
+                      tright.insertAfter(node);
+                      tright = node;
+                  }
+                  node = temp;
+              }
+              return [
+                  pivot,
+                  tleft !== pivot ? tleft : null,
+                  tright !== pivot ? tright : null
+              ];
+          }
+      }
+      // like C++ std::list::size 
+      size() {
+          let t = this.front(), size = 0;
+          while (t.nextNode) {
+              t = t.nextNode;
+              size++;
+          }
+          return size;
+      }
+      // Like C++ std::list::front
       front() {
           return this._head.nextNode;
+      }
+      // like C++ std::list::back
+      back() {
+          return this._rear.prevNode;
+      }
+      // list java java.util List get()
+      get(index) {
+          let node = this.front();
+          for (let i = 0; node && i < index; i++) {
+              node = node.nextNode;
+          }
+          return node;
       }
   }
 

@@ -29,6 +29,13 @@ export default class ListNode extends Node {
     }
     return node;
   }
+  deleteBefore(): ListNode{
+    let node = this._prevNode;
+    if (node) {
+      node.deleteCurrent();
+    }
+    return node;
+  }
 
   insertAfter(node: ListNode): void {
     node._prevNode = this;
@@ -43,7 +50,7 @@ export default class ListNode extends Node {
     node._prevNode = this._prevNode;
     node._nextNode = this;
     node._nextNode._prevNode = node;
-    if (node._nextNode) {
+    if (node._prevNode) {
       node._prevNode._nextNode = node;
     }
   }

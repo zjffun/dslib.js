@@ -32,7 +32,7 @@ export default class TreeNode extends Node {
   }
 
   isLeaf(): boolean {
-    return !this._children.length;
+    return !this._children.size();
   }
 
   isLastChild(): boolean {

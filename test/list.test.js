@@ -21,9 +21,6 @@ test("List", () => {
   expect(arr[4] instanceof List).toBeTruthy();
 });
 
-test("List.length", () => {
-  expect(testList.length).toEqual(5);
-});
 
 test("List.from()", () => {
   // Array
@@ -106,6 +103,11 @@ test("List.prototype.sortNode()", () => {
   expect([...testList.sortNode((a, b) => b - a)]).toEqual(
     [9, 4, 8, 3, 1, 2, 5].sort((a, b) => b - a)
   );
+});
+
+
+test("List.size()", () => {
+  expect(testList.size()).toEqual(5);
 });
 
 test("List.prototype.front()", () => {

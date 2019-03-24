@@ -3,43 +3,38 @@ import from from "./list/from";
 import reduce from "./list/reduce";
 
 export default class List {
-  private _length: number = 0;
   private _head: ListNode = null;
-  [Symbol.iterator]() {
-    let currentNode = this._head;
-    return {
-      next() {
-        currentNode = currentNode.nextNode;
-        return {
-          done: !currentNode,
-          value: currentNode && currentNode.value
-        };
-      }
-    };
-  }
-
-  get length() {
-    return this._length;
-  }
-
-  get rear() {
-    let rear = this._head;
-    while (rear.nextNode) {
-      rear = rear.nextNode;
-    }
-    return rear;
-  }
-
-  get head() {
-    return this._head;
-  }
+  private _rear: ListNode = null;
 
   constructor(...args) {
     if (args.length) {
       Object.assign(this, List.of(...args));
     } else {
       this._head = new ListNode();
+      this._rear = new ListNode();
+      this._head.insertAfter(this._rear);
     }
+  }
+
+  [Symbol.iterator]() {
+    let currentNode = this._head, rear = this._rear;
+    return {
+      next() {
+        currentNode = currentNode.nextNode;
+        return {
+          done: currentNode === rear,
+          value: currentNode && currentNode.value
+        };
+      }
+    };
+  }
+
+  get rear() {
+    return this._rear;
+  }
+
+  get head() {
+    return this._head;
   }
 
   static from(...args): List {
@@ -56,24 +51,21 @@ export default class List {
 
   push(value, key = null): void {
     let node = new ListNode(value, key);
-    this.rear.insertAfter(node);
-    this._length++;
+    this._rear.insertBefore(node);
   }
 
   pop(): ListNode {
     let node = null;
-    if (this._length > 0) {
-      node = this.rear.deleteCurrent();
-      this._length--;
+    if (this._rear.prevNode !== this._head) {
+      node = this._rear.deleteBefore();
     }
     return node || new ListNode();
   }
 
   shift(): ListNode {
     let node = null;
-    if (this._length > 0) {
+    if (this._head.nextNode !== this._rear) {
       node = this._head.deleteAfter();
-      this._length--;
     }
     return node || new ListNode();
   }
@@ -81,7 +73,6 @@ export default class List {
   unshift(value, key = null): void {
     let node = new ListNode(value, key);
     this._head.insertAfter(node);
-    this._length++;
   }
 
   reduce(callback, initialValue) {
@@ -90,7 +81,7 @@ export default class List {
 
   forEach(callback) {
     let node = this.front();
-    while (node) {
+    while (node.nextNode) {
       callback(node.value, node);
       node = node.nextNode;
     }
@@ -106,7 +97,7 @@ export default class List {
   }
 
   sort(compareFunction) {
-    recQuickSort(this.front(), this.rear);
+    recQuickSort(this.front(), this.back());
     return this;
     function recQuickSort(left, right) {
       var cur = partition(left, right);
@@ -141,7 +132,7 @@ export default class List {
   }
 
   sortNode(compareFunction) {
-    recQuickSort(this.front(), this.rear);
+    recQuickSort(this.front(), this.back());
     return this;
     function recQuickSort(left, right) {
       var [cur, tleft, tright] = partition(left, right);
@@ -191,9 +182,24 @@ export default class List {
     }
   }
 
-  // Like c++ std::list::front
+  // like C++ std::list::size 
+  size() : number {
+    let t = this.front(), size = 0;
+    while (t.nextNode) {
+      t = t.nextNode;
+      size++;
+    }
+    return size;
+  }
+
+  // Like C++ std::list::front
   front(): ListNode {
     return this._head.nextNode;
+  }
+
+  // like C++ std::list::back
+  back(): ListNode {
+    return this._rear.prevNode;
   }
 
   // list java java.util List get()
