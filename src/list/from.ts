@@ -1,6 +1,6 @@
 import List from "../list";
 
-export default function from(arrayLike /*, mapFn, thisArg */) {
+export default function _from(arrayLike, mapFn, thisArg) {
   var toStr = Object.prototype.toString;
   var isCallable = function(fn) {
     return typeof fn === "function" || toStr.call(fn) === "[object Function]";
@@ -32,8 +32,6 @@ export default function from(arrayLike /*, mapFn, thisArg */) {
   }
 
   // 4. If mapfn is undefined, then let mapping be false.
-  var mapFn = arguments.length > 1 ? arguments[1] : void undefined;
-  var T;
   if (typeof mapFn !== "undefined") {
     // 5. else
     // 5. a If IsCallable(mapfn) is false, throw a TypeError exception.
@@ -42,11 +40,6 @@ export default function from(arrayLike /*, mapFn, thisArg */) {
         "List.from: when provided, the second argument must be a function"
       );
     }
-
-    // 5. b. If thisArg was supplied, let T be thisArg; else let T be undefined.
-    if (arguments.length > 2) {
-      T = arguments[2];
-    }
   }
 
   // 10. Let lenValue be Get(items, "length").
@@ -54,7 +47,7 @@ export default function from(arrayLike /*, mapFn, thisArg */) {
   var len = toLength(items.length);
 
   // 13. Let A be List.
-  var L:List = new this();
+  var L = new List();
 
   // 16. Let k be 0.
   var k = 0;
@@ -64,7 +57,7 @@ export default function from(arrayLike /*, mapFn, thisArg */) {
     kValue = items[k];
     if (mapFn) {
       L.push(
-        typeof T === "undefined" ? mapFn(kValue, k) : mapFn.call(T, kValue, k)
+        typeof thisArg === "undefined" ? mapFn(kValue, k) : mapFn.call(thisArg, kValue, k)
       );
     } else {
       L.push(kValue);

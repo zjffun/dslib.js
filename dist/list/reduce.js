@@ -1,17 +1,16 @@
-import ListNode from "../listnode";
-
-export default function (callback, initialValue) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function default_1(callback, initialValue) {
     if (typeof callback !== 'function') {
         throw new TypeError(callback +
             ' is not a function');
     }
-
-    var node:ListNode = this.front();
+    var node = this.front();
     var accumulator;
-
     if (initialValue) {
         accumulator = initialValue;
-    } else {
+    }
+    else {
         if (!node) {
             throw new TypeError('Reduce of empty List ' +
                 'with no initial value');
@@ -19,15 +18,13 @@ export default function (callback, initialValue) {
         accumulator = node.value;
         node = node.nextNode;
     }
-
     while (node) {
         accumulator = callback(accumulator, node.value, node.key, this);
         node = node.nextNode;
     }
-
     return accumulator;
 }
-
+exports.default = default_1;
 /*refence
 [Array.prototype.reduce() - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce#Polyfill)
-*/
+*/ 

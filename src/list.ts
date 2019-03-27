@@ -1,11 +1,22 @@
 import ListNode from "./listnode";
-import from from "./list/from";
+import _from from "./list/from";
 import reduce from "./list/reduce";
+import sort from "./list/sort";
 
+/**
+ * Doubly linked list
+ */
 export default class List {
   private _head: ListNode = null;
   private _rear: ListNode = null;
 
+  /**
+   * Initialize list with the given elements.
+   * ```
+   * new List(element0, element1[, ...[, elementN]])
+   * ```
+   * @param args element0, element1, ..., elementN
+   */
   constructor(...args) {
     if (args.length) {
       Object.assign(this, List.of(...args));
@@ -16,8 +27,12 @@ export default class List {
     }
   }
 
+  /**
+   * Return Iterator object that contains the values for each node in the list.
+   */
   [Symbol.iterator]() {
-    let currentNode = this._head, rear = this._rear;
+    let currentNode = this._head,
+      rear = this._rear;
     return {
       next() {
         currentNode = currentNode.nextNode;
@@ -29,31 +44,62 @@ export default class List {
     };
   }
 
+  /**
+   * The rear node of the list
+   */
   get rear() {
     return this._rear;
   }
 
+  /**
+   * The head node of the list
+   */
   get head() {
     return this._head;
   }
 
-  static from(...args): List {
-    return from.apply(this, args);
+  /**
+   * Create a new List instance from an array-like or iterable object.
+   * @param arrayLike An array-like or iterable object to convert to an array.
+   * @param mapFn Map function to call on every element of the array.
+   * @param thisArg Value to use as `this` when executing `mapFn`.
+   */
+  static from(arrayLike, mapFn?: Function, thisArg?: any): List {
+    return _from(arrayLike, mapFn, thisArg);
   }
 
+  /**
+   * Creates a new List instance from a variable number of arguments.
+   * ```
+   * List.of(element0, element1[, ...[, elementN]])
+   * ```
+   * @param args element0, element1, ..., elementN
+   */
   static of(...args): List {
     return List.from(args);
   }
 
-  static isList(node): boolean {
-    return node instanceof List;
+  /**
+   * Determines whether the passed value is an list.
+   * @param val The value to be checked.
+   */
+  static isList(val): boolean {
+    return val instanceof List;
   }
 
+  /**
+   * Add one element to the end of the list.
+   * @param value element's value
+   * @param key (Optinal) element's key
+   */
   push(value, key = null): void {
     let node = new ListNode(value, key);
     this._rear.insertBefore(node);
   }
 
+  /**
+   * Remove the last element from the list and return that element.
+   */
   pop(): ListNode {
     let node = null;
     if (this._rear.prevNode !== this._head) {
@@ -62,6 +108,9 @@ export default class List {
     return node || new ListNode();
   }
 
+  /**
+   * Remove the first element from the list and return that element.
+   */
   shift(): ListNode {
     let node = null;
     if (this._head.nextNode !== this._rear) {
@@ -70,121 +119,92 @@ export default class List {
     return node || new ListNode();
   }
 
+  /**
+   * Add one element to the front of the List.
+   * @param value element's value
+   * @param key (Optinal) element's key
+   */
   unshift(value, key = null): void {
     let node = new ListNode(value, key);
     this._head.insertAfter(node);
   }
 
-  reduce(callback, initialValue) {
+  /**
+   * Execute a reducer function (that you provide) on each member of the list resulting in a single output value.
+   * @param callback reducer functionFunction to execute on each element in the list, taking four arguments: 
+   *   accumulator
+   *     The accumulator accumulates the callback's return values; it is the accumulated value previously returned in the last invocation of the callback, or initialValue, if supplied (see below).
+   *   currentValue
+   *     The current element's value being processed in the list.
+   *   currntKey Optional
+   *     The current element's key being processed in the list.
+   *   currentNode(Optional)
+   *     The current node being processed in the list.
+   * @param initialValue Value to use as the first argument to the first call of the callback. If no initial value is supplied, the first element in the array will be used. Calling reduce() on an empty array without an initial value is an error.
+   */
+  reduce(callback, initialValue?: any) {
     return reduce.call(this, callback, initialValue);
   }
 
-  forEach(callback) {
+  /**
+   * Execute a provided function once for each list element.
+   * @param callback Function to execute on each element, taking three arguments:
+   *   currentValue
+   *     The current element's value being processed in the list.
+   *   currntKey Optional
+   *     The current element's key being processed in the list.
+   *   currentNode(Optional)
+   *     The current node being processed in the list.
+   * @param thisArg Value to use as this when executing callback.
+   */
+  forEach(callback, thisArg?: any) {
     let node = this.front();
     while (node.nextNode) {
-      callback(node.value, node);
+      thisArg ? callback.call(thisArg, node.value, node.key, node) : callback(node.value, node.key, node);
       node = node.nextNode;
     }
   }
 
-  map(callback) {
+  /**
+   * Calling a provided function on every element in the calling list.
+   * @param callback Function to execute on each element, taking three arguments:
+   *   currentValue
+   *     The current element's value being processed in the list.
+   *   currntKey Optional
+   *     The current element's key being processed in the list.
+   *   currentNode(Optional)
+   *     The current node being processed in the list.
+   * @param thisArg Value to use as this when executing callback.
+   */
+  map(callback, thisArg) {
     let node = this.front();
     while (node) {
-      node.setValue(callback(node.value, node));
+      thisArg ? node.setValue(callback.call(thisArg, node.value, node.key, node)) : node.setValue(callback(node.value, node.key, node));
       node = node.nextNode;
     }
     return this;
   }
 
+  /**
+   * Sort the elements of an list. 
+   * @param compareFunction Specifies a function that defines the sort order.
+   *  firstEl
+   *    The first element for comparison.
+   *  secondEl
+   *    The second element for comparison. 
+   */
   sort(compareFunction) {
-    recQuickSort(this.front(), this.back());
+    sort(this, compareFunction);
     return this;
-    function recQuickSort(left, right) {
-      var cur = partition(left, right);
-      if (cur.prevNode && left !== cur && left !== cur.prevNode) {
-        recQuickSort(left, cur.prevNode);
-      }
-      if (cur.nextNode && right !== cur && right !== cur.nextNode) {
-        recQuickSort(cur.nextNode, right);
-      }
-    }
-
-    function partition(left, right) {
-      var pivot = right,
-        tleft = left,
-        temp;
-      var node = left;
-      while (node !== pivot) {
-        if (compareFunction(node.value, pivot.value) < 0) {
-          temp = node.value;
-          node.setValue(tleft.value);
-          tleft.setValue(temp);
-          tleft = tleft.nextNode;
-        }
-        node = node.nextNode;
-      }
-      temp = tleft.value;
-      tleft.setValue(pivot.value);
-      pivot.setValue(temp);
-      pivot = tleft;
-      return pivot;
-    }
   }
 
-  sortNode(compareFunction) {
-    recQuickSort(this.front(), this.back());
-    return this;
-    function recQuickSort(left, right) {
-      var [cur, tleft, tright] = partition(left, right);
-      if (tleft) {
-        recQuickSort(tleft, cur.prevNode);
-      }
-      if (tright) {
-        recQuickSort(cur.nextNode, tright);
-      }
-    }
-
-    function partition(left, right) {
-      var pivot = right,
-        tleft = left,
-        tright = right,
-        temp;
-      var node = left;
-      while (node !== pivot) {
-        temp = node.nextNode;
-        if (compareFunction(node.value, pivot.value) > 0) {
-          node.deleteCurrent();
-          tright.insertAfter(node);
-          tright = node;
-        } else {
-          tleft = node;
-          break;
-        }
-        tleft = temp;
-        node = temp;
-      }
-
-      while (node !== pivot) {
-        temp = node.nextNode;
-        if (compareFunction(node.value, pivot.value) > 0) {
-          node.deleteCurrent();
-          tright.insertAfter(node);
-          tright = node;
-        }
-        node = temp;
-      }
-
-      return [
-        pivot,
-        tleft !== pivot ? tleft : null,
-        tright !== pivot ? tright : null
-      ];
-    }
-  }
-
-  // like C++ std::list::size 
-  size() : number {
-    let t = this.front(), size = 0;
+  /**
+   * Returns the number of elements in the list.
+   * like [list::size - C++ Reference](http://www.cplusplus.com/reference/list/list/size/)
+   */
+  size(): number {
+    let t = this.front(),
+      size = 0;
     while (t.nextNode) {
       t = t.nextNode;
       size++;
@@ -192,17 +212,27 @@ export default class List {
     return size;
   }
 
-  // Like C++ std::list::front
+  /**
+   * Returns a reference to the first element in the list.
+   * like [list::front - C++ Reference](http://www.cplusplus.com/reference/list/list/front/)
+   */
   front(): ListNode {
     return this._head.nextNode;
   }
 
-  // like C++ std::list::back
+  /**
+   * Returns a reference to the last element in the list.
+   * [list::back - C++ Reference](http://www.cplusplus.com/reference/list/list/back/)
+   */
   back(): ListNode {
     return this._rear.prevNode;
   }
 
-  // list java java.util List get()
+  /**
+   * Returns the element at the specified position in this list.
+   * like [List get(int) - (Java Platform SE 7 )](https://docs.oracle.com/javase/7/docs/api/java/util/List.html#get(int))
+   * @param index index of the element to return
+   */
   get(index: number): ListNode {
     let node = this.front();
     for (let i = 0; node && i < index; i++) {

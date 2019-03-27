@@ -1,4 +1,4 @@
-const List = require("../dist/list");
+const List = require("../dist/list").default;
 
 beforeAll(() => {
   global.testList = new List(
@@ -20,7 +20,6 @@ test("List", () => {
   ]);
   expect(arr[4] instanceof List).toBeTruthy();
 });
-
 
 test("List.from()", () => {
   // Array
@@ -75,13 +74,13 @@ test("List.prototype.reduce()", () => {
 test("List.prototype.forEach()", () => {
   let testList = new List(1, 2, 3),
     arr = [];
-  testList.forEach((d, node) => arr.push([d, node.value]));
+  testList.forEach((d, k, node) => arr.push([d, node.value]));
   expect(arr).toEqual([[1, 1], [2, 2], [3, 3]]);
 });
 
 test("List.prototype.map()", () => {
   let testList = new List(1, 2, 3);
-  expect([...testList.map(d => d * 2)]).toEqual([2,4,6]);
+  expect([...testList.map(d => d * 2)]).toEqual([2, 4, 6]);
 });
 
 test("List.prototype.sort()", () => {
@@ -93,18 +92,6 @@ test("List.prototype.sort()", () => {
     [9, 4, 8, 3, 1, 2, 5].sort((a, b) => b - a)
   );
 });
-
-test("List.prototype.sortNode()", () => {
-  let testList = new List(9, 4, 8, 3, 1, 2, 5);
-  expect([...testList.sortNode((a, b) => a - b)]).toEqual(
-    [9, 4, 8, 3, 1, 2, 5].sort((a, b) => a - b)
-  );
-  /** bug：rear */
-  expect([...testList.sortNode((a, b) => b - a)]).toEqual(
-    [9, 4, 8, 3, 1, 2, 5].sort((a, b) => b - a)
-  );
-});
-
 
 test("List.size()", () => {
   expect(testList.size()).toEqual(5);

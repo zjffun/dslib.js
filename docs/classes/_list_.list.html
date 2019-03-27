@@ -69,6 +69,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Doubly linked list</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -116,7 +123,6 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_list_.list.html#shift" class="tsd-kind-icon">shift</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_list_.list.html#size" class="tsd-kind-icon">size</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_list_.list.html#sort" class="tsd-kind-icon">sort</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_list_.list.html#sortnode" class="tsd-kind-icon">sort<wbr>Node</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_list_.list.html#unshift" class="tsd-kind-icon">unshift</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_list_.list.html#from" class="tsd-kind-icon">from</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_list_.list.html#islist" class="tsd-kind-icon">is<wbr>List</a></li>
@@ -138,13 +144,24 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L7">list.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L11">list.ts:11</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Initialize list with the given elements.</p>
+									<pre><code><span class="hljs-keyword">new</span> <span class="hljs-constructor">List(<span class="hljs-params">element0</span>, <span class="hljs-params">element1</span>[, <span class="hljs-operator">...</span>[, <span class="hljs-params">elementN</span>]])</span></code></pre>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>element0, element1, ..., elementN</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_list_.list.html" class="tsd-signature-type">List</a></h4>
@@ -160,7 +177,7 @@
 					<div class="tsd-signature tsd-kind-icon">_head<span class="tsd-signature-symbol">:</span> <a href="_listnode_.listnode.html" class="tsd-signature-type">ListNode</a><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L6">list.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L10">list.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -170,7 +187,7 @@
 					<div class="tsd-signature tsd-kind-icon">_rear<span class="tsd-signature-symbol">:</span> <a href="_listnode_.listnode.html" class="tsd-signature-type">ListNode</a><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L7">list.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L11">list.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -187,9 +204,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L36">list.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L57">list.ts:57</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The head node of the list</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_listnode_.listnode.html" class="tsd-signature-type">ListNode</a></h4>
 						</li>
 					</ul>
@@ -204,9 +226,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L32">list.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L50">list.ts:50</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The rear node of the list</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_listnode_.listnode.html" class="tsd-signature-type">ListNode</a></h4>
 						</li>
 					</ul>
@@ -224,9 +251,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L19">list.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L33">list.ts:33</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Return Iterator object that contains the values for each node in the list.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
 							<ul class="tsd-parameters">
 								<li class="tsd-parameter">
@@ -238,7 +270,7 @@
 										<li class="tsd-description">
 											<aside class="tsd-sources">
 												<ul>
-													<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L22">list.ts:22</a></li>
+													<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L37">list.ts:37</a></li>
 												</ul>
 											</aside>
 											<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
@@ -266,9 +298,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L201">list.ts:201</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L227">list.ts:227</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a reference to the last element in the list.
+									<a href="http://www.cplusplus.com/reference/list/list/back/">list::back - C++ Reference</a></p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_listnode_.listnode.html" class="tsd-signature-type">ListNode</a></h4>
 						</li>
 					</ul>
@@ -277,19 +315,39 @@
 					<a name="foreach" class="tsd-anchor"></a>
 					<h3>for<wbr>Each</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">for<wbr>Each<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">for<wbr>Each<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, thisArg<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L82">list.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L160">list.ts:160</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Execute a provided function once for each list element.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>callback: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Function to execute on each element, taking three arguments:
+											currentValue
+											The current element&#39;s value being processed in the list.
+											currntKey Optional
+											The current element&#39;s key being processed in the list.
+											currentNode(Optional)
+										The current node being processed in the list.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> thisArg: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Value to use as this when executing callback.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -306,9 +364,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L196">list.ts:196</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L219">list.ts:219</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a reference to the first element in the list.
+									like <a href="http://www.cplusplus.com/reference/list/list/front/">list::front - C++ Reference</a></p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_listnode_.listnode.html" class="tsd-signature-type">ListNode</a></h4>
 						</li>
 					</ul>
@@ -323,13 +387,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L206">list.ts:206</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L236">list.ts:236</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the element at the specified position in this list.
+									like <a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html#get(int)">List get(int) - (Java Platform SE 7 )</a></p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>index: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>index of the element to return</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_listnode_.listnode.html" class="tsd-signature-type">ListNode</a></h4>
@@ -340,19 +413,39 @@
 					<a name="map" class="tsd-anchor"></a>
 					<h3>map</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, thisArg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L90">list.ts:90</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L179">list.ts:179</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Calling a provided function on every element in the calling list.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>callback: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Function to execute on each element, taking three arguments:
+											currentValue
+											The current element&#39;s value being processed in the list.
+											currntKey Optional
+											The current element&#39;s key being processed in the list.
+											currentNode(Optional)
+										The current node being processed in the list.</p>
+									</div>
+								</li>
+								<li>
+									<h5>thisArg: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Value to use as this when executing callback.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -369,9 +462,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L57">list.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L103">list.ts:103</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Remove the last element from the list and return that element.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_listnode_.listnode.html" class="tsd-signature-type">ListNode</a></h4>
 						</li>
 					</ul>
@@ -386,16 +484,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L52">list.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L95">list.ts:95</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add one element to the end of the list.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>value: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>element&#39;s value</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> key: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;null</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>(Optinal) element&#39;s key</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -406,22 +515,41 @@
 					<a name="reduce" class="tsd-anchor"></a>
 					<h3>reduce</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">reduce<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, initialValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">reduce<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, initialValue<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L78">list.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L145">list.ts:145</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Execute a reducer function (that you provide) on each member of the list resulting in a single output value.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>callback: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>reducer functionFunction to execute on each element in the list, taking four arguments:
+											accumulator
+											The accumulator accumulates the callback&#39;s return values; it is the accumulated value previously returned in the last invocation of the callback, or initialValue, if supplied (see below).
+											currentValue
+											The current element&#39;s value being processed in the list.
+											currntKey Optional
+											The current element&#39;s key being processed in the list.
+											currentNode(Optional)
+										The current node being processed in the list.</p>
+									</div>
 								</li>
 								<li>
-									<h5>initialValue: <span class="tsd-signature-type">any</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> initialValue: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Value to use as the first argument to the first call of the callback. If no initial value is supplied, the first element in the array will be used. Calling reduce() on an empty array without an initial value is an error.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -438,9 +566,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L65">list.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L114">list.ts:114</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Remove the first element from the list and return that element.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_listnode_.listnode.html" class="tsd-signature-type">ListNode</a></h4>
 						</li>
 					</ul>
@@ -455,9 +588,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L186">list.ts:186</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L205">list.ts:205</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the number of elements in the list.
+									like <a href="http://www.cplusplus.com/reference/list/list/size/">list::size - C++ Reference</a></p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
@@ -472,36 +611,25 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L99">list.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L196">list.ts:196</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sort the elements of an list.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>compareFunction: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="sortnode" class="tsd-anchor"></a>
-					<h3>sort<wbr>Node</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">sort<wbr>Node<span class="tsd-signature-symbol">(</span>compareFunction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L134">list.ts:134</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>compareFunction: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Specifies a function that defines the sort order.
+											firstEl
+											The first element for comparison.
+											secondEl
+										The second element for comparison.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -518,16 +646,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L73">list.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L127">list.ts:127</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add one element to the front of the List.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>value: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>element&#39;s value</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> key: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;null</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>(Optinal) element&#39;s key</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -538,19 +677,39 @@
 					<a name="from" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> from</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_list_.list.html" class="tsd-signature-type">List</a></li>
+						<li class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">(</span>arrayLike<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, mapFn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span>, thisArg<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_list_.list.html" class="tsd-signature-type">List</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L40">list.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L67">list.ts:67</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a new List instance from an array-like or iterable object.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>arrayLike: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An array-like or iterable object to convert to an array.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> mapFn: <span class="tsd-signature-type">Function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Map function to call on every element of the array.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> thisArg: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Value to use as <code>this</code> when executing <code>mapFn</code>.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_list_.list.html" class="tsd-signature-type">List</a></h4>
@@ -561,19 +720,27 @@
 					<a name="islist" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>List</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>List<span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">is<wbr>List<span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L48">list.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L86">list.ts:86</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determines whether the passed value is an list.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>node: <span class="tsd-signature-type">any</span></h5>
+									<h5>val: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The value to be checked.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -590,13 +757,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/300130e/src/list.ts#L44">list.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/1010543618/dslib.js/blob/3f1ba2d/src/list.ts#L78">list.ts:78</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a new List instance from a variable number of arguments.</p>
+									<pre><code>List.<span class="hljs-keyword">of</span>(element0, element1<span class="hljs-comment">[, ...<span class="hljs-comment">[, elementN]</span>]</span>)</code></pre>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>element0, element1, ..., elementN</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_list_.list.html" class="tsd-signature-type">List</a></h4>
@@ -611,6 +787,9 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_index_.html">"index"</a>
+					</li>
 					<li class="current tsd-kind-external-module">
 						<a href="../modules/_list_.html">"list"</a>
 					</li>
@@ -619,6 +798,9 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_list_reduce_.html">"list/reduce"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_list_sort_.html">"list/sort"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_listnode_.html">"listnode"</a>
@@ -688,9 +870,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_list_.list.html#sort" class="tsd-kind-icon">sort</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_list_.list.html#sortnode" class="tsd-kind-icon">sort<wbr>Node</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_list_.list.html#unshift" class="tsd-kind-icon">unshift</a>
