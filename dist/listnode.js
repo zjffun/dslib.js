@@ -7,12 +7,21 @@ class ListNode extends node_1.default {
         this._prevNode = null;
         this._nextNode = null;
     }
+    /**
+     * The previous node.
+     */
     get prevNode() {
         return this._prevNode;
     }
+    /**
+     * The next node.
+     */
     get nextNode() {
         return this._nextNode;
     }
+    /**
+     * Delete current node and return deleted node.
+     */
     deleteCurrent() {
         let node = this;
         if (node._prevNode) {
@@ -25,6 +34,9 @@ class ListNode extends node_1.default {
         node._nextNode = null;
         return node;
     }
+    /**
+     * Delete next node and return deleted node.
+     */
     deleteAfter() {
         let node = this._nextNode;
         if (node) {
@@ -32,6 +44,9 @@ class ListNode extends node_1.default {
         }
         return node;
     }
+    /**
+     * Delete previous node and return deleted node.
+     */
     deleteBefore() {
         let node = this._prevNode;
         if (node) {
@@ -39,6 +54,10 @@ class ListNode extends node_1.default {
         }
         return node;
     }
+    /**
+     * Insert a note after current node.
+     * @param node Node will inserted.
+     */
     insertAfter(node) {
         node._prevNode = this;
         node._nextNode = this._nextNode;
@@ -47,6 +66,10 @@ class ListNode extends node_1.default {
             node._nextNode._prevNode = node;
         }
     }
+    /**
+     * Insert a note before current node.
+     * @param node Node will inserted.
+     */
     insertBefore(node) {
         node._prevNode = this._prevNode;
         node._nextNode = this;

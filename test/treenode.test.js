@@ -1,7 +1,7 @@
 const TreeNode = require('../dist/treenode').default;
 
 beforeAll(() => {
-  global.testTree = new TreeNode();
+  global.testTree = new TreeNode(0);
   global.node1 = new TreeNode(1);
   global.node2 = new TreeNode(2);
   global.node3 = new TreeNode(3);
@@ -20,7 +20,24 @@ beforeAll(() => {
   node4.addChild(node7);
   node4.addChild(node8);
   node4.addChild(node9);
+  /**
+   * tree
+   * root testTree(0) 
+   * ├─ node1(1)
+   * ├─ node2(2)
+   * ├─ node3(3)
+   * │  └─ node5(5)
+   * │  └─ node6(6)
+   * └─ node4(4)
+   * │  └─ node7(7)
+   * │  └─ node8(8)
+   * │  └─ node9(9)
+   */
 });
+
+test("TreeNode.prototype.addChild()", ()=>{
+
+})
 
 test("TreeNode.prototype.isLeaf()", ()=>{
 
