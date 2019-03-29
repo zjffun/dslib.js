@@ -1,4 +1,4 @@
-const TreeNode = require('../dist/treenode').default;
+const TreeNode = require("../dist/treenode").default;
 
 beforeAll(() => {
   global.testTree = new TreeNode(0);
@@ -22,7 +22,7 @@ beforeAll(() => {
   node4.addChild(node9);
   /**
    * tree
-   * root testTree(0) 
+   * root testTree(0)
    * ├─ node1(1)
    * ├─ node2(2)
    * ├─ node3(3)
@@ -35,19 +35,39 @@ beforeAll(() => {
    */
 });
 
-test("TreeNode.prototype.addChild()", ()=>{
+function getLevelOrderTraverseNodes(treenode) {
+  let nodes = [];
+  treenode.traverse((v, k, n) => nodes.push(n));
+  return nodes;
+}
 
-})
+test("TreeNode.prototype.addChild()", () => {
+  let tree = new TreeNode(0),
+    tn1 = new TreeNode(1),
+    tn2 = new TreeNode(2);
+  tree.addChild(tn1);
+  tree.addChild(tn2);
+  expect(getLevelOrderTraverseNodes(tree)).toEqual([tree, tn1, tn2]);
+});
 
-test("TreeNode.prototype.isLeaf()", ()=>{
+test("TreeNode.prototype.isLeaf()", () => {
+  expect(testTree.isLeaf()).toBeFalsy();
+  expect(node1.isLeaf()).toBeTruthy();
+});
 
-})
-test("TreeNode.prototype.isLastChild()", ()=>{
+test("TreeNode.prototype.isLastChild()", () => {
+  expect(testTree.isLastChild()).toBeFalsy();
+  expect(node4.isLastChild()).toBeTruthy();
+});
 
-})
-test("TreeNode.prototype.rTraverse()", ()=>{
+test("TreeNode.prototype.rTraverse()", () => {
+  let nodes = [];
+  testTree.rTraverse((v, k, n) => nodes.push(v));
+  expect(nodes).toEqual([1, 2, 5, 6, 3, 7, 8, 9, 4, 0]);
+});
 
-})
-test("TreeNode.prototype.traverse()", ()=>{
-
-})
+test("TreeNode.prototype.traverse()", () => {
+  let nodes = [];
+  testTree.traverse((v, k, n) => nodes.push(v));
+  expect(nodes).toEqual([0, 1, 2, 3, 5, 6, 4, 7, 8, 9]);
+});

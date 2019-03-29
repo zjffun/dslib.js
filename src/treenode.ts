@@ -59,52 +59,55 @@ export default class TreeNode extends Node {
    * Determines whether the current node is the last node of the parent node.
    */
   isLastChild(): boolean {
-    return this._parent._children.rear.value == this;
+    return this._parent && this._parent._children.back().value == this;
   }
 
-  // 
   /**
    * Traverse the current treenode from bottom to top. (rTraverse means Reverse Traverse)
    * @param callback Function to execute on each element, taking three arguments:
    *   currentValue
    *     The current element's value being processed in the tree.
-   *   currntKey Optional
+   *   currntKey(Optional)
    *     The current element's key being processed in the tree.
    *   currentNode(Optional)
    *     The current treenode being processed in the tree.
+   *   currentListNode(Optional)
+   *     The current listnode being processed in the children list.
    * @param thisArg Value to use as this when executing callback.
    */
   rTraverse(callback, thisArg?: any) {
-    var children = this._children,
-      child = children.front();
-    while (child) {
-      child.value.rTraverse(callback, thisArg);
-      child = child.nextNode;
-    }
-    callback.call(thisArg, this.value, this.key, this);
+    let _traverse = (callback, thisArg, listnode: ListNode) => {
+      let treenode = listnode.value;
+      if(treenode.children){
+        treenode.children.forEach((v, k, n) => {
+          _traverse(callback, thisArg, n);
+        });
+      }
+      callback.call(thisArg, treenode.value, treenode.key, treenode, listnode);
+    };
+    _traverse(callback, thisArg, new ListNode(this));
   }
 
   /**
    * Traverse the current treenode from top to bottom.
-   * @param callback Function to execute on each element, taking three arguments:
+   * @param callback Function to execute on each element, if callback return false stop traverse, taking three arguments:
    *   currentValue
    *     The current element's value being processed in the tree.
-   *   currntKey Optional
+   *   currntKey(Optional)
    *     The current element's key being processed in the tree.
    *   currentNode(Optional)
    *     The current treenode being processed in the tree.
+   *   currentListNode(Optional)
+   *     The current listnode being processed in the children list.
    * @param thisArg Value to use as this when executing callback.
    */
   traverse(callback, thisArg?: any) {
-    let _traverse = (callback, thisArg, rowNode) => {
-      let value = rowNode.getValue();
-      if (callback.call(thisArg, value, rowNode.key, rowNode) !== false) {
-        var children = value.children,
-          child = children.front();
-        while (child) {
-          _traverse(callback, thisArg, child);
-          child = child.getNextNode();
-        }
+    let _traverse = (callback, thisArg, listnode: ListNode) => {
+      let treenode = listnode.value;
+      if (callback.call(thisArg, treenode.value, treenode.key, treenode, listnode) !== false) {
+        treenode.children.forEach((v, k, n) => {
+          _traverse(callback, thisArg, n);
+        })
       }
     };
     _traverse(callback, thisArg, new ListNode(this));
