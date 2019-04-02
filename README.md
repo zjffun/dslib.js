@@ -24,7 +24,21 @@ yarn add 1010543618/dslib.js
 
 CommonJS
 
+```js
+const List = require("dslib.js").List;
+
+let list = new List(...[10, 105, 4, 3, 6, 1, 8]);
+console.log(...list.sort((a, b) => a - b));
+```
+
 ES6 Modules
+
+```js
+import { List } from "dslib.js";
+
+let list = new List(...[10, 105, 4, 3, 6, 1, 8]);
+console.log(...list.sort((a, b) => a - b));
+```
 
 # Documention
 https://1010543618.github.io/dslib.js/docs/
