@@ -1,4 +1,4 @@
-const List = require("../dist/list").default;
+const List = require("../dist/list");
 
 beforeAll(() => {
   global.testList = new List(

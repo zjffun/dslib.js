@@ -1,3 +1,4 @@
+// TODO: how to handle circular dependency?
 import List from "../list";
 
 export default function _from(arrayLike, mapFn, thisArg) {

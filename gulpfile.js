@@ -38,8 +38,7 @@ async function build() {
           name: key,
           dir: "dist",
           format: "umd",
-          banner: "/* dslib.js version " + pkg.version + " */",
-          footer: "/* follow me on Twitter! @rich_harris */"
+          banner: "/* dslib.js version " + pkg.version + " */"
         });
       });
   }

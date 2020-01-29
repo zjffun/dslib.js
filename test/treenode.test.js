@@ -1,4 +1,4 @@
-const TreeNode = require("../dist/treenode").default;
+const TreeNode = require("../dist/treenode");
 
 beforeAll(() => {
   global.testTree = new TreeNode(0);
