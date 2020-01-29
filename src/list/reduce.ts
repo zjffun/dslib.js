@@ -9,7 +9,7 @@ export default function (callback, initialValue) {
     var node:ListNode = this.front();
     var accumulator;
 
-    if (initialValue) {
+    if (initialValue !== undefined) {
         accumulator = initialValue;
     } else {
         if (!node) {
@@ -20,7 +20,7 @@ export default function (callback, initialValue) {
         node = node.nextNode;
     }
 
-    while (node) {
+    while (node.nextNode) {
         accumulator = callback(accumulator, node.value, node.key, this);
         node = node.nextNode;
     }
