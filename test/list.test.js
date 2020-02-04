@@ -1,4 +1,4 @@
-const List = require("../dist/index").List;
+const List = require("../").List;
 
 beforeAll(() => {
   global.testList = new List(
