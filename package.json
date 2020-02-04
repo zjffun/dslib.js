@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "start": "gulp dev",
-    "build": "gulp build",
-    "test": "jest",
+    "start": "tsc -w",
+    "build": "tsc -d",
+    "test": "npm run build && jest",
     "doc": "typedoc --out ./docs ./src"
   },
   "author": "",

@@ -171,6 +171,28 @@ export default class List {
   }
 
   /**
+   * Merge two or more lists.
+   * @param {...List} list
+   */
+  concat() {
+    for (let i = 0; i < arguments.length; i++) {
+      if (!List.isList(arguments[i])) {
+        throw Error("Arguments of List.prototype.concat must be list");
+      }
+    }
+    let pn = null,
+      nn = null;
+    for (let i = 0; i < arguments.length; i++) {
+      pn = this.back();
+      nn = arguments[i].front();
+      this._rear = arguments[i]._rear;
+      pn._nextNode = nn;
+      nn._prevNode = pn;
+    }
+    return this;
+  }
+
+  /**
    * Calling a provided function on every element in the calling list.
    * @param callback Function to execute on each element, taking three arguments:
    *   currentValue

@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const listnode_1 = require("./listnode");
-const from_1 = require("./list/from");
-const reduce_1 = require("./list/reduce");
-const sort_1 = require("./list/sort");
+import ListNode from "./listnode";
 /**
  * Doubly linked list
  */
-class List {
+export default class List {
+    private _head;
+    private _rear;
     /**
      * Initialize list with the given elements.
      * ```
@@ -15,54 +12,31 @@ class List {
      * ```
      * @param args element0, element1, ..., elementN
      */
-    constructor(...args) {
-        this._head = null;
-        this._rear = null;
-        if (args.length) {
-            Object.assign(this, List.of(...args));
-        }
-        else {
-            this._head = new listnode_1.default();
-            this._rear = new listnode_1.default();
-            this._head.insertAfter(this._rear);
-        }
-    }
+    constructor(...args: any[]);
     /**
      * Return Iterator object that contains the values for each node in the list.
      */
-    [Symbol.iterator]() {
-        let currentNode = this._head, rear = this._rear;
-        return {
-            next() {
-                currentNode = currentNode.nextNode;
-                return {
-                    done: currentNode === rear,
-                    value: currentNode && currentNode.value
-                };
-            }
+    [Symbol.iterator](): {
+        next(): {
+            done: boolean;
+            value: any;
         };
-    }
+    };
     /**
      * The rear node of the list
      */
-    get rear() {
-        return this._rear;
-    }
+    get rear(): ListNode;
     /**
      * The head node of the list
      */
-    get head() {
-        return this._head;
-    }
+    get head(): ListNode;
     /**
      * Create a new List instance from an array-like or iterable object.
      * @param arrayLike An array-like or iterable object to convert to an array.
      * @param mapFn Map function to call on every element of the array.
      * @param thisArg Value to use as `this` when executing `mapFn`.
      */
-    static from(arrayLike, mapFn, thisArg) {
-        return from_1.default(arrayLike, mapFn, thisArg);
-    }
+    static from(arrayLike: any, mapFn?: Function, thisArg?: any): List;
     /**
      * Creates a new List instance from a variable number of arguments.
      * ```
@@ -70,54 +44,32 @@ class List {
      * ```
      * @param args element0, element1, ..., elementN
      */
-    static of(...args) {
-        return List.from(args);
-    }
+    static of(...args: any[]): List;
     /**
      * Determines whether the passed value is an list.
      * @param val The value to be checked.
      */
-    static isList(val) {
-        return val instanceof List;
-    }
+    static isList(val: any): boolean;
     /**
      * Add one element to the end of the list.
      * @param value element's value
      * @param key (Optinal) element's key
      */
-    push(value, key = null) {
-        let node = new listnode_1.default(value, key);
-        this._rear.insertBefore(node);
-    }
+    push(value: any, key?: any): void;
     /**
      * Remove the last element from the list and return that element.
      */
-    pop() {
-        let node = null;
-        if (this.back()) {
-            node = this._rear.deleteBefore();
-        }
-        return node || new listnode_1.default();
-    }
+    pop(): ListNode;
     /**
      * Remove the first element from the list and return that element.
      */
-    shift() {
-        let node = null;
-        if (this.front()) {
-            node = this._head.deleteAfter();
-        }
-        return node || new listnode_1.default();
-    }
+    shift(): ListNode;
     /**
      * Add one element to the front of the List.
      * @param value element's value
      * @param key (Optinal) element's key
      */
-    unshift(value, key = null) {
-        let node = new listnode_1.default(value, key);
-        this._head.insertAfter(node);
-    }
+    unshift(value: any, key?: any): void;
     /**
      * Execute a reducer function (that you provide) on each member of the list resulting in a single output value.
      * @param callback reducer functionFunction to execute on each element in the list, taking four arguments:
@@ -131,9 +83,7 @@ class List {
      *     The current node being processed in the list.
      * @param initialValue Value to use as the first argument to the first call of the callback. If no initial value is supplied, the first element in the array will be used. Calling reduce() on an empty array without an initial value is an error.
      */
-    reduce(callback, initialValue) {
-        return reduce_1.default.call(this, callback, initialValue);
-    }
+    reduce(callback: any, initialValue?: any): any;
     /**
      * Execute a provided function once for each list element.
      * @param callback Function to execute on each element, taking three arguments:
@@ -145,38 +95,12 @@ class List {
      *     The current node being processed in the list.
      * @param thisArg Value to use as this when executing callback.
      */
-    forEach(callback, thisArg) {
-        let node = this.front();
-        if (!node) {
-            return;
-        }
-        while (node !== this._rear) {
-            thisArg
-                ? callback.call(thisArg, node.value, node.key, node)
-                : callback(node.value, node.key, node);
-            node = node.nextNode;
-        }
-    }
+    forEach(callback: any, thisArg?: any): void;
     /**
      * Merge two or more lists.
      * @param {...List} list
      */
-    concat() {
-        for (let i = 0; i < arguments.length; i++) {
-            if (!List.isList(arguments[i])) {
-                throw Error("Arguments of List.prototype.concat must be list");
-            }
-        }
-        let pn = null, nn = null;
-        for (let i = 0; i < arguments.length; i++) {
-            pn = this.back();
-            nn = arguments[i].front();
-            this._rear = arguments[i]._rear;
-            pn._nextNode = nn;
-            nn._prevNode = pn;
-        }
-        return this;
-    }
+    concat(): this;
     /**
      * Calling a provided function on every element in the calling list.
      * @param callback Function to execute on each element, taking three arguments:
@@ -188,16 +112,7 @@ class List {
      *     The current node being processed in the list.
      * @param thisArg Value to use as this when executing callback.
      */
-    map(callback, thisArg) {
-        let node = this.front();
-        while (node) {
-            thisArg
-                ? node.setValue(callback.call(thisArg, node.value, node.key, node))
-                : node.setValue(callback(node.value, node.key, node));
-            node = node.nextNode;
-        }
-        return this;
-    }
+    map(callback: any, thisArg: any): this;
     /**
      * Sort the elements of an list.
      * @param compareFunction Specifies a function that defines the sort order.
@@ -206,50 +121,26 @@ class List {
      *  secondEl
      *    The second element for comparison.
      */
-    sort(compareFunction) {
-        sort_1.default(this, compareFunction);
-        return this;
-    }
+    sort(compareFunction: any): this;
     /**
      * Returns the number of elements in the list.
      * like [list::size - C++ Reference](http://www.cplusplus.com/reference/list/list/size/)
      */
-    size() {
-        let t = this.front(), size = 0;
-        if (!t) {
-            return size;
-        }
-        while (t !== this._rear) {
-            t = t.nextNode;
-            size++;
-        }
-        return size;
-    }
+    size(): number;
     /**
      * Returns a reference to the first element in the list.
      * like [list::front - C++ Reference](http://www.cplusplus.com/reference/list/list/front/)
      */
-    front() {
-        return this._head.nextNode !== this._rear ? this._head.nextNode : null;
-    }
+    front(): ListNode;
     /**
      * Returns a reference to the last element in the list.
      * [list::back - C++ Reference](http://www.cplusplus.com/reference/list/list/back/)
      */
-    back() {
-        return this._rear.prevNode !== this._head ? this._rear.prevNode : null;
-    }
+    back(): ListNode;
     /**
      * Returns the element at the specified position in this list.
      * like [List get(int) - (Java Platform SE 7 )](https://docs.oracle.com/javase/7/docs/api/java/util/List.html#get(int))
      * @param index index of the element to return
      */
-    get(index) {
-        let node = this.front();
-        for (let i = 0; node && i < index; i++) {
-            node = node.nextNode;
-        }
-        return node !== this._rear ? node : null;
-    }
+    get(index: number): ListNode;
 }
-exports.default = List;

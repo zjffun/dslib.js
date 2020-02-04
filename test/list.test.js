@@ -1,4 +1,4 @@
-const List = require("../dist/list");
+const List = require("../dist/index").List;
 
 beforeAll(() => {
   global.testList = new List(
@@ -87,6 +87,23 @@ test("List.prototype.forEach()", () => {
   testEmptyList.forEach(_ => {
     expect(false);
   });
+});
+
+test("List.prototype.concat()", () => {
+  let testList = new List(1, 2, 3),
+    testList1 = new List(4, 5, 6),
+    testList2 = new List(7, 8, 9);
+  expect([...testList.concat(testList1, testList2)]).toEqual([
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ]);
 });
 
 test("List.prototype.map()", () => {

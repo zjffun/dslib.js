@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// TODO: how to handle circular dependency?
 const list_1 = require("../list");
 function _from(arrayLike, mapFn, thisArg) {
     var toStr = Object.prototype.toString;
