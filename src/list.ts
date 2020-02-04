@@ -102,7 +102,7 @@ export default class List {
    */
   pop(): ListNode {
     let node = null;
-    if (this._rear.prevNode !== this._head) {
+    if (this.back()) {
       node = this._rear.deleteBefore();
     }
     return node || new ListNode();
@@ -113,7 +113,7 @@ export default class List {
    */
   shift(): ListNode {
     let node = null;
-    if (this._head.nextNode !== this._rear) {
+    if (this.front()) {
       node = this._head.deleteAfter();
     }
     return node || new ListNode();
@@ -131,7 +131,7 @@ export default class List {
 
   /**
    * Execute a reducer function (that you provide) on each member of the list resulting in a single output value.
-   * @param callback reducer functionFunction to execute on each element in the list, taking four arguments: 
+   * @param callback reducer functionFunction to execute on each element in the list, taking four arguments:
    *   accumulator
    *     The accumulator accumulates the callback's return values; it is the accumulated value previously returned in the last invocation of the callback, or initialValue, if supplied (see below).
    *   currentValue
@@ -159,8 +159,13 @@ export default class List {
    */
   forEach(callback, thisArg?: any) {
     let node = this.front();
-    while (node.nextNode) {
-      thisArg ? callback.call(thisArg, node.value, node.key, node) : callback(node.value, node.key, node);
+    if (!node) {
+      return;
+    }
+    while (node !== this._rear) {
+      thisArg
+        ? callback.call(thisArg, node.value, node.key, node)
+        : callback(node.value, node.key, node);
       node = node.nextNode;
     }
   }
@@ -179,19 +184,21 @@ export default class List {
   map(callback, thisArg) {
     let node = this.front();
     while (node) {
-      thisArg ? node.setValue(callback.call(thisArg, node.value, node.key, node)) : node.setValue(callback(node.value, node.key, node));
+      thisArg
+        ? node.setValue(callback.call(thisArg, node.value, node.key, node))
+        : node.setValue(callback(node.value, node.key, node));
       node = node.nextNode;
     }
     return this;
   }
 
   /**
-   * Sort the elements of an list. 
+   * Sort the elements of an list.
    * @param compareFunction Specifies a function that defines the sort order.
    *  firstEl
    *    The first element for comparison.
    *  secondEl
-   *    The second element for comparison. 
+   *    The second element for comparison.
    */
   sort(compareFunction) {
     sort(this, compareFunction);
@@ -205,7 +212,10 @@ export default class List {
   size(): number {
     let t = this.front(),
       size = 0;
-    while (t.nextNode) {
+    if (!t) {
+      return size;
+    }
+    while (t !== this._rear) {
       t = t.nextNode;
       size++;
     }
@@ -217,7 +227,7 @@ export default class List {
    * like [list::front - C++ Reference](http://www.cplusplus.com/reference/list/list/front/)
    */
   front(): ListNode {
-    return this._head.nextNode;
+    return this._head.nextNode !== this._rear ? this._head.nextNode : null;
   }
 
   /**
@@ -225,7 +235,7 @@ export default class List {
    * [list::back - C++ Reference](http://www.cplusplus.com/reference/list/list/back/)
    */
   back(): ListNode {
-    return this._rear.prevNode;
+    return this._rear.prevNode !== this._head ? this._rear.prevNode : null;
   }
 
   /**
@@ -238,6 +248,6 @@ export default class List {
     for (let i = 0; node && i < index; i++) {
       node = node.nextNode;
     }
-    return node;
+    return node !== this._rear ? node : null;
   }
 }

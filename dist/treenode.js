@@ -124,6 +124,7 @@
       }
   }
 
+  // TODO: how to handle circular dependency?
   function _from(arrayLike, mapFn, thisArg) {
       var toStr = Object.prototype.toString;
       var isCallable = function (fn) {
@@ -185,24 +186,25 @@
   */
 
   function reduce (callback, initialValue) {
-      if (typeof callback !== 'function') {
-          throw new TypeError(callback +
-              ' is not a function');
+      if (typeof callback !== "function") {
+          throw new TypeError(callback + " is not a function");
       }
       var node = this.front();
       var accumulator;
-      if (initialValue) {
+      if (initialValue !== undefined) {
           accumulator = initialValue;
       }
       else {
           if (!node) {
-              throw new TypeError('Reduce of empty List ' +
-                  'with no initial value');
+              throw new TypeError("Reduce of empty List " + "with no initial value");
           }
           accumulator = node.value;
           node = node.nextNode;
       }
-      while (node) {
+      if (!node) {
+          return accumulator;
+      }
+      while (node !== this._rear) {
           accumulator = callback(accumulator, node.value, node.key, this);
           node = node.nextNode;
       }
@@ -347,7 +349,7 @@
        */
       pop() {
           let node = null;
-          if (this._rear.prevNode !== this._head) {
+          if (this.back()) {
               node = this._rear.deleteBefore();
           }
           return node || new ListNode();
@@ -357,7 +359,7 @@
        */
       shift() {
           let node = null;
-          if (this._head.nextNode !== this._rear) {
+          if (this.front()) {
               node = this._head.deleteAfter();
           }
           return node || new ListNode();
@@ -400,8 +402,13 @@
        */
       forEach(callback, thisArg) {
           let node = this.front();
-          while (node.nextNode) {
-              thisArg ? callback.call(thisArg, node.value, node.key, node) : callback(node.value, node.key, node);
+          if (!node) {
+              return;
+          }
+          while (node !== this._rear) {
+              thisArg
+                  ? callback.call(thisArg, node.value, node.key, node)
+                  : callback(node.value, node.key, node);
               node = node.nextNode;
           }
       }
@@ -419,7 +426,9 @@
       map(callback, thisArg) {
           let node = this.front();
           while (node) {
-              thisArg ? node.setValue(callback.call(thisArg, node.value, node.key, node)) : node.setValue(callback(node.value, node.key, node));
+              thisArg
+                  ? node.setValue(callback.call(thisArg, node.value, node.key, node))
+                  : node.setValue(callback(node.value, node.key, node));
               node = node.nextNode;
           }
           return this;
@@ -442,7 +451,10 @@
        */
       size() {
           let t = this.front(), size = 0;
-          while (t.nextNode) {
+          if (!t) {
+              return size;
+          }
+          while (t !== this._rear) {
               t = t.nextNode;
               size++;
           }
@@ -453,14 +465,14 @@
        * like [list::front - C++ Reference](http://www.cplusplus.com/reference/list/list/front/)
        */
       front() {
-          return this._head.nextNode;
+          return this._head.nextNode !== this._rear ? this._head.nextNode : null;
       }
       /**
        * Returns a reference to the last element in the list.
        * [list::back - C++ Reference](http://www.cplusplus.com/reference/list/list/back/)
        */
       back() {
-          return this._rear.prevNode;
+          return this._rear.prevNode !== this._head ? this._rear.prevNode : null;
       }
       /**
        * Returns the element at the specified position in this list.
@@ -472,7 +484,7 @@
           for (let i = 0; node && i < index; i++) {
               node = node.nextNode;
           }
-          return node;
+          return node !== this._rear ? node : null;
       }
   }
 

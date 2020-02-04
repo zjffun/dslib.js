@@ -1,31 +1,33 @@
 import ListNode from "../listnode";
 
-export default function (callback, initialValue) {
-    if (typeof callback !== 'function') {
-        throw new TypeError(callback +
-            ' is not a function');
+export default function(callback, initialValue) {
+  if (typeof callback !== "function") {
+    throw new TypeError(callback + " is not a function");
+  }
+
+  var node: ListNode = this.front();
+  var accumulator;
+
+  if (initialValue !== undefined) {
+    accumulator = initialValue;
+  } else {
+    if (!node) {
+      throw new TypeError("Reduce of empty List " + "with no initial value");
     }
+    accumulator = node.value;
+    node = node.nextNode;
+  }
 
-    var node:ListNode = this.front();
-    var accumulator;
-
-    if (initialValue !== undefined) {
-        accumulator = initialValue;
-    } else {
-        if (!node) {
-            throw new TypeError('Reduce of empty List ' +
-                'with no initial value');
-        }
-        accumulator = node.value;
-        node = node.nextNode;
-    }
-
-    while (node.nextNode) {
-        accumulator = callback(accumulator, node.value, node.key, this);
-        node = node.nextNode;
-    }
-
+  if (!node) {
     return accumulator;
+  }
+
+  while (node !== this._rear) {
+    accumulator = callback(accumulator, node.value, node.key, this);
+    node = node.nextNode;
+  }
+
+  return accumulator;
 }
 
 /*refence

@@ -8,6 +8,7 @@ beforeAll(() => {
     { 1: "zxc", 2: "zxc", 3: "zxc" },
     new List("1", "2", "3")
   );
+  global.testEmptyList = new List();
 });
 
 test("List", () => {
@@ -19,6 +20,8 @@ test("List", () => {
     { 1: "zxc", 2: "zxc", 3: "zxc" }
   ]);
   expect(arr[4] instanceof List).toBeTruthy();
+
+  expect([...testEmptyList]).toEqual([]);
 });
 
 test("List.from()", () => {
@@ -69,18 +72,27 @@ test("List.prototype.pop(), List.shift", () => {
 test("List.prototype.reduce()", () => {
   let testList = new List(2, 3, 4);
   expect(testList.reduce((sum, cur) => sum + cur, 0)).toBe(9);
+  expect(testEmptyList.reduce((sum, cur) => sum + cur, 0)).toBe(0);
 });
 
 test("List.prototype.forEach()", () => {
   let testList = new List(1, 2, 3),
     arr = [];
   testList.forEach((d, k, node) => arr.push([d, node.value]));
-  expect(arr).toEqual([[1, 1], [2, 2], [3, 3]]);
+  expect(arr).toEqual([
+    [1, 1],
+    [2, 2],
+    [3, 3]
+  ]);
+  testEmptyList.forEach(_ => {
+    expect(false);
+  });
 });
 
 test("List.prototype.map()", () => {
   let testList = new List(1, 2, 3);
   expect([...testList.map(d => d * 2)]).toEqual([2, 4, 6]);
+  expect([...testEmptyList.map(d => d * 2)]).toEqual([]);
 });
 
 test("List.prototype.sort()", () => {
@@ -95,12 +107,15 @@ test("List.prototype.sort()", () => {
 
 test("List.size()", () => {
   expect(testList.size()).toEqual(5);
+  expect(testEmptyList.size()).toEqual(0);
 });
 
 test("List.prototype.front()", () => {
   expect(testList.front().value).toBe(1);
+  expect(testEmptyList.front()).toBe(null);
 });
 
 test("List.prototype.get()", () => {
   expect(testList.get(1).value).toBe("zxc");
+  expect(testEmptyList.get(0)).toBe(null);
 });
